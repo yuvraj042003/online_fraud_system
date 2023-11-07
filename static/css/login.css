@@ -1,0 +1,78 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(205, 144, 191);
+    ;
+}
+
+.row {
+    background-color: rgb(184, 86, 184);
+    border-radius: 30px;
+}
+
+img {
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.btn1 {
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    color: aliceblue;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn1:hover {
+    background-color: aliceblue;
+    border: 1px solid;
+    color: black;
+}
+
+.img-fluid {
+    width: 100%;
+    height: 100%;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+/* unvisited link */
+a:link {
+    color: red;
+}
+
+/* visited link */
+a:visited {
+    color: rgb(98, 0, 128);
+}
+
+/* mouse over link */
+a:hover {
+    color: rgb(186, 52, 22);
+}
+
+/* selected link */
+a:active {
+    color: rgb(10, 10, 86);
+}

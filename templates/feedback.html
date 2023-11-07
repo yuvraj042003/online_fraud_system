@@ -1,0 +1,101 @@
+{% extends "header.html" %} {% load static %} {% block nav %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+
+<body>
+  <div class="contact1">
+    <div class="container-contact1">
+      <div class="contact1-pic js-tilt" data-tilt>
+        <img src="{% static 'images/img-01.png' %}" alt="IMG" />
+      </div>
+
+      <div class="contact1-form validate-form">
+        <span class="contact1-form-title">
+          {{message}}
+        </span>
+
+        <div class="wrap-input1 validate-input" data-validate="Name is required">
+          <input class="input1" type="text" name="name" id="name" placeholder="Name" required/>
+          <span class="shadow-input1"></span>
+        </div>
+
+        <div class="wrap-input1 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+          <input class="input1" type="text" name="email" id="email" placeholder="Email" required/>
+          <span class="shadow-input1"></span>
+        </div>
+        <br />
+        <div class="rating">
+          <label>How will you rate your Overall experience?</label> <br />
+          <br />
+          <p>
+            <label class="radio-inline">
+              <input type="radio" name="experience" id="radio_experience" value="bad" />
+              Bad
+
+              <label class="radio-inline">
+                <input type="radio" name="experience" id="radio_experience" value="average" />
+                Average
+              </label>
+
+              <label class="radio-inline">
+                <input type="radio" name="experience" id="radio_experience" value="good" />
+                Good
+              </label>
+            </label>
+          </p>
+          <br />
+        </div>
+
+        <div class="wrap-input1 validate-input" data-validate="Message is required">
+          <textarea class="input1" name="Feedback" id="Feedback" placeholder="Type in Your {{type}}" required></textarea>
+          <span class="shadow-input1"></span>
+        </div>
+
+        <div class="container-contact1-form-btn">
+          <button class="contact1-form-btn" onclick="callSave()">
+            <span>
+              Submit
+              <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div>
+          <h3 id="err-div"></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(".js-tilt").tilt({
+      scale: 1.1,
+    });
+  </script>
+  <script>
+    function callSave() {
+      $.ajax({
+        type: "GET",
+        url: "/save-feedback?name=" + $('#name').val() + "&email=" + $('#email').val() + "&experience=" + $('input[name="experience"]:checked').val()+"&Feedback="+$('#Feedback').val(),
+        dataType: "JSON",
+        cache: false,
+        async: false,
+        error: function (err) {
+          alert('Error occured see console to check more');
+          console.log(err);
+        },
+        success: function (data) {
+          console.log(data);
+          data = JSON.parse(JSON.stringify(data));
+          $('#err-div').text(data.message);
+        },
+      });
+    }
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "UA-23581568-13");
+  </script>
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+{% endblock nav %}

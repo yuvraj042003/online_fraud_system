@@ -1,0 +1,3 @@
+transaction_id,amount,logtime,from_user_id,to_user_id,from_user_account_id,to_user_account_id
+1,500.00,"2023-10-24 18:03:00.000000",1,5,206985258948,878013347246
+2,1000.00,"2023-10-24 18:03:21.000000",1,5,206985258948,878013347246

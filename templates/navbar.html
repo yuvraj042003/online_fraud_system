@@ -1,0 +1,78 @@
+{% extends "header.html" %}
+{% load static %}
+<!--Navabar start-->
+
+{% block nav %}
+<body>
+    <nav class="container-fluid navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/home">Home</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/home" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Accounts
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/show-acc?type=c">Current Account</a></li>
+                            <li><a class="dropdown-item" href="/show-acc?type=s">Saving Account</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/home" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Transfer Amount
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/send-money?type=b">Between Accounts</a></li>
+                            <li><a class="dropdown-item" href="/send-money?type=o">To Others</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/add-recipent">Add Recipient</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="/home" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Feedback & Suggestion
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/feedback?type=c">Fill Complain</a></li>
+                            <li><a class="dropdown-item" href="/feedback?type=s">Suggestion</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/feedback?type=f">Feedback</a></li>
+                        </ul>
+                    </li>
+                    <a class="nav-link active" href="/open-account">Open Account</a>
+                    <a class="nav-link active" href="/renderDeposit">Deposit</a>
+                    <a class="nav-link active" href="/renderWithr">Withdraw</a>
+                </ul>
+    
+                <span class="d-flex" role="search">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">My Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </span>
+    
+            </div>
+        </div>
+    </nav>
+    <!--Navabar ends-->
+    {% block body %}
+    
+    {% endblock body %}
+    </body>
+    </html>
+{% endblock nav %}
+

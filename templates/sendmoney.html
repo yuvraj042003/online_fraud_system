@@ -1,0 +1,223 @@
+{% extends "navbar.html" %} {% load static %} {% block body %}
+<style>
+  label {
+    color: black;
+  }
+</style>
+<script>
+  function isTransactionFraud() {
+    if (!$('#amount').val()) {
+      Swal.fire('Please Enter Amount to proceed');
+      return;
+    }
+    if ($('#amount').val()) {
+      if ($('#balance').val()) {
+        if (parseInt($('#amount').val()) > parseInt($('#balance').val())) {
+          Swal.fire('Limit Exceeding')
+          return;
+        }
+      }
+    }
+    $.ajax({
+      type: "GET",
+      url: "/transfer?to=" + $('#to').val() + "&amount=" + $('#amount').val(),
+      dataType: "JSON",
+      cache: false,
+      async: false,
+      error: function (err) {
+        alert('Error occured see console to check more');
+        console.log(err);
+      },
+      success: function (data) {
+        $('#user_details').hide();
+        console.log(data);
+        data = JSON.parse(JSON.stringify(data));
+        if (data.message == 'true') {
+          Swal.fire('Transaction is fraud')
+          return;
+        } else {
+          location.href = "/home"
+        }
+      },
+    });
+  }
+</script>
+{% comment %}
+{% endcomment %}
+{% for account in accounts %}
+<div class="container text-center">
+  <div class="row justify-content-center my-4">
+    <div class="col-4" selected>
+      <div class="card text-bg-primary mb-3" style="max-width: 18rem">
+        <div class="card-header">Savings Account</div>
+        <div class="card-body">
+          <p class="card-text">
+            Balance : {{account.balance}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card text-bg-info mb-3" style="max-width: 18rem">
+        <div class="card-header">Current Account</div>
+        <div class="card-body">
+          <p class="card-text">
+            Balance : {{account.balance}}
+          </p>
+          <input type="hidden" name="balance" id="balance" value="{{account.balance}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<form action="/">
+  <div class="container px-4 text-center my-5">
+    <div class="row gx-5">
+      <div class="col">
+        <h3>Please search person to send Money: </h3>
+      </div>
+      <div class="col">
+        <input class="form-control mr-sm-2" type="search" id="filter-input" placeholder="Enter Account Number"
+          aria-label="Search" onkeyup="callAutoFillMethod(this)">
+      </div>
+    </div>
+  </div>
+  <input type="hidden" name="isvalid" id="isvalid">
+  <!--Populate Details of user which are getting selected-->
+  <div class="container px-4 text-center my-5" id="user_details">
+    <div class="row gx-5">
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="name" value="">
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="email" value="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-5">
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="address" value="">
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">PIN</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="pincode" value="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-5">
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Mobile Number</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="mobile_no" value="">
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Account Number</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="account_number" value="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row gx-5">
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">IFSC</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="ifsc" value="">
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3 row">
+          <label for="staticEmail" class="col-sm-2 col-form-label">Bank Location</label>
+          <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="state" value="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container text-center" onclick="toggleModel(false)">
+    <div class="row justify-content-center my-4" onclick="toggleModel(false)">
+      <div class="col-4" onclick="toggleModel(false)">
+        <div class="form-check form-check-inline" onclick="toggleModel(false)">
+          <div class="input-group mb-3" onclick="toggleModel(false)">
+            <div class="form-check form-check-inline">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"
+                  onclick="toggleModel(false)">
+                <label class="form-check-label" for="inlineCheckbox1">Terms & Conditions</label
+                  onclick="toggleModel(false)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="to" id="to">
+      <div class="col-4">
+        <div class="form-check form-check-inline">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Enter Amount" aria-label="Enter Amount"
+              aria-describedby="button-addon2" id="amount">
+            <button class="btn btn-outline-secondary btn-primary" type="button" id="button-addon2"
+              onclick="isTransactionFraud();">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+
+  </div>
+</form>
+{% comment %} Models {% endcomment %}
+<div class="modal fade show" id="exampleModalCenteredScrollable" tabindex="-1"
+  aria-labelledby="exampleModalCenteredScrollableTitle" aria-modal="true" role="dialog" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Terms & Conditions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          onclick="toggleModel(true)"></button>
+      </div>
+      <div class="modal-body">
+        <p style="text-align: justify;text-justify: inter-word;"><strong>Please Read Carefully</strong>
+          Welcome to our bank Astha Fraud Detection System App.
+          By using our app, you agree to maintain the security of your account and promptly report
+          any suspected fraud. Your data privacy is protected under our privacy policy. We employ robust security measures, monitor account activity, and communicate about potential fraud via email, SMS, or in-app notifications.
+
+In case of fraud, your liability is limited, and we have a dedicated process for resolution and potential reimbursement. Keep the app updated for enhanced security. We comply with all relevant laws. We reserve the right to terminate access in cases of misuse. For assistance or to report fraud, contact our customer support. Thank you for choosing.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+          onclick="toggleModel(true)">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %} Models {% endcomment %}
+{% endblock body %}

@@ -1,0 +1,44 @@
+{% extends "header.html" %}
+{% load static %}
+{% block nav %}
+<body>
+    <section class="Form my-4 mx-5">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-lg-5">
+                    <img src="{% static 'images/logo.png' %}" alt="Not found" class="img-fluid">
+                </div>
+                <div class="col-lg-7 px-5 pt-5">
+                    <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" class="font-weight-bold">
+                        Welcome to Online Banking & Fraud Detection System</h1>
+                    <h4>Sign in into your Account</h4>
+                    <form action="/login" method="get">
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <input type="email" placeholder="Email-Address" class="form-control my-3 p-4"
+                                    name="email">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-lg-7">
+                                <div class="password-container">
+                                    <input type="password" placeholder="Password..." id="password"
+                                        class="form-control my-3 p-4" name="password">
+                                    <i class="fa-solid fa-eye" id="eye"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row my-3">
+                            <div class="col-lg-7">
+                                <input type="submit" class="btn1 mt3 mb-5">
+                            </div>
+                        </div>
+                    </form>
+                    <p>Don't have Account? <a style="color: azure;" href="/register">Register Here</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+{% endblock nav %}

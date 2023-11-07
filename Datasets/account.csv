@@ -1,0 +1,3 @@
+id,balance,user_id,account_number,ifsc,bank_user_id,nominee,state,address,created_at,updated_at
+1,18000,5,878013347246,77464391,50646,Nishu,MP,Sagar,"2023-10-24 11:56:54.598170","2023-10-24 11:56:54.598170"
+2,20,1,206985258948,31275574,881711,nmbv,MP,"Sagar mp","2023-10-24 12:28:50.516837","2023-10-24 12:28:50.516837"

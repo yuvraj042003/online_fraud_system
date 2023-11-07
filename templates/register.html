@@ -1,0 +1,73 @@
+{% extends "header.html" %}
+{% load static %}
+{% block nav %}
+<link href="{% static 'css/my-style.css' %}" rel="stylesheet">
+<script>
+    function validate() {
+        console.log('validated');
+        document.getElementById("my_form").submit();
+    }
+</script>
+
+<body>
+    <div class="container">
+        <div class="title">Please fill below details!</div>
+        <div class="content">
+            <form action="/saveuser" method="POST" name="my_form" id="my_form">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" name="name" placeholder="Enter your name" required />
+                    </div>
+
+                    <div class="gender-details">
+                        <span class="details">Gender</span>
+
+                        <input type="radio" name="gender" value="M" required /> Male
+                        <input type="radio" name="gender" value="F" /> Female
+                        <input type="radio" name="gender" value="G" /> Prefer Not to Say
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Date of Birth</span>
+                        <input type="date" placeholder="" id="Date" name="dob" required />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Email Id</span>
+                        <input type="email" placeholder="Enter your Email Id" name="email" required />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Mobile Number</span>
+                        <input type="text" placeholder="Enter your Number" id="mobile_no" name="mobile_no" required
+                            maxlength="10" />
+                    </div>
+                    <div>
+                        <h4 id="show-error" style="color: rgb(182, 29, 29);"></h4>
+                    </div>
+
+                    <!-- 4444 -->
+
+                    <div class="input-box">
+                        <span class="details">Address</span>
+                        <textarea type="text" placeholder="Enter your address" name="address" required maxlength="10"
+                            cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">pincode</span>
+                        <input type="text" placeholder="Enter your pincode" name="pincode" required maxlength="10"
+                            onkeyup="allnumeric(this);" />
+                    </div>
+                </div>
+
+                <div class="button">
+                    <input type="button" value="Register" onclick="validate();" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock nav %}

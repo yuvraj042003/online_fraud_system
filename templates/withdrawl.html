@@ -1,0 +1,75 @@
+{% extends "navbar.html" %} {% load static %} {% block body %}
+<script>
+
+  function sendMoney() {
+    $.ajax({
+      type: "GET",
+      url: "/withdraw?accountNumber=" + $('#accountNumber').val() + "&withdrawAmount=" + $('#withdrawAmount').val(),
+      dataType: "JSON",
+      cache: false,
+      async: false,
+      error: function (err) {
+        alert('Error occured see console to check more');
+        console.log(err);
+      },
+      success: function (data) {
+        console.log(data);
+        data = JSON.parse(JSON.stringify(data));
+        if(data){
+        $('#err-msg').text(data.message);
+        }
+      },
+    });
+  }
+</script>
+
+<style>
+    body{
+    background-image: url("{% static 'images/Check-icon 1.png' %}")
+    }
+
+</style>
+<div class="container overflow-hidden text-center">
+  <div class="row gy-5">
+    <div class="col-6">
+      <div class="p-3">
+
+          <div class="input-group">
+          <span class="input-group-text">Please enter your name</span>
+          <input type="text" aria-label="Name" class="form-control"  id="name" name="name" required>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">
+
+                    <div class="input-group">
+          <span class="input-group-text">Please Enter Bank Account Number</span>
+          <input type="text" aria-label="First name" class="form-control" id="accountNumber" name="accountNumber" required>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="p-3">          <div class="input-group">
+          <span class="input-group-text">Please enter amount</span>
+          <input type="text" aria-label="First name" class="form-control"  id="withdrawAmount" name="withdrawAmount" required>
+        </div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container overflow-hidden text-center">
+    <div class="row">
+        <div class="col">
+
+                  <div class="p-3">
+
+          <button type="button" class="btn btn-danger"  value="Withdrwal Amount" onclick="sendMoney()">Withdrawl Amount Money</button>
+      </div>
+        </div>
+    </div>
+</div>
+
+        <h3 id="err-msg"></h3>
+{% endblock body %}

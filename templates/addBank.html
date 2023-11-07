@@ -1,0 +1,97 @@
+{% extends "header.html" %}
+{% load static %}
+{% block nav %}
+<link href="{% static 'css/my-style.css' %}" rel="stylesheet">
+<script>
+    var otp=null;
+    function validate() {
+        if($('#otp').val()){
+            if(otp==$('#otp').val()){
+            console.log('validated');
+            document.getElementById("my_form").submit();
+            }else{
+                $('#show-error').text('Please check otp')
+            }
+        }
+        if($('#email').val()){
+            $.ajax({
+                type: "GET",
+                url: "/send-otp/?email=" + $('#email').val(),
+                dataType: "JSON",
+                cache: false,
+                async: false,
+                error: function (err) {
+                    $('#show-error').text('Please provide valid email')
+                },
+                success: function (data) {
+                    console.log(data);
+                    data = JSON.parse(JSON.stringify(data));
+                    otp=data.otp;
+                    $('#hide').show();
+                },
+            });
+        }else{
+            $('#show-error').text('Please enter email')
+        }
+    }
+</script>
+
+<body>
+    <div class="container">
+        <div class="title">Please fill below details!</div>
+        <div class="content">
+            <form action="/open-account" method="GET" name="my_form" id="my_form">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" name="fname" placeholder="Enter your name" required />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Email</span>
+                        <input type="email" placeholder="Enter your Email Id" name="email" required id="email"/>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Mobile Number</span>
+                        <input type="text" placeholder="Enter your Number" id="mobileno" name="mobileno" required
+                            maxlength="10"  />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Address</span>
+                        <textarea type="text" placeholder="Enter your Address" id="address" name="address" required
+                            maxlength="10"  cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Pincode</span>
+                        <input type="text" placeholder="Enter your pincode" id="pincode" name="pincode" required
+                            maxlength="10" onkeyup="allnumeric(this);" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">State</span>
+                        <input type="text" placeholder="Enter your State" id="state" name="state" required
+                            maxlength="10"  />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Nominee</span>
+                        <input type="text" placeholder="Enter your nominee" id="nominee" name="nominee" required
+                            maxlength="10"  />
+                    </div>
+                    <div class="input-box" id="hide" style="display: none;">
+                        <span class="details">OTP</span>
+                        <input type="text" placeholder="Enter your Number" id="otp" name="otp" required
+                            maxlength="10" onkeyup="allnumeric(this);" />
+                    </div>
+                </div>
+                <div>
+                    <h4 id="show-error" style="color: rgb(182, 29, 29);"></h4>
+                </div>
+                <div class="button">
+                    <input type="button" value="Open Account" onclick="validate();" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock nav %}
